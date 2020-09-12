@@ -24,4 +24,15 @@
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="input lop 6.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="output lop 6.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="num.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

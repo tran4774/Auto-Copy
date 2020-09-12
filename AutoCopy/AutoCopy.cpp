@@ -1,11 +1,10 @@
-﻿#include <io.h>
+﻿#include <bits/stdc++.h>
+#include <io.h>
 #include <fcntl.h>
-#include <string>
-#include <iostream>
-#include <vector>
-#include <fstream>
 #include <conio.h>
+#include <regex>
 #include <windows.h>
+
 using namespace std;
 
 bool ALL[700005];
@@ -24,9 +23,10 @@ void End_Program();
 int main() {
     SetConsoleOutputCP(65001);
     set_DefaultSize_Console();
-    _setmode(_fileno(stdin), _O_U16TEXT);
-    _setmode(_fileno(stdout), _O_U16TEXT);
-    Input_Class();
+    _setmode(_fileno(stdin), 0x00020000);
+    _setmode(_fileno(stdout), 0x00020000);
+    //Input_Class();
+    Class = 6;
     Input_Number();
     ProcessData();
     End_Program();
@@ -77,8 +77,8 @@ void ProcessData() {
     checkNo_Exist_or_Empty_File(fin, Lop[0] + Lop[Class]);
     wofstream fout("output " + Lop[Class], ios::out);
     bool flag = false;
-    int counter = -1;
-    while (!fin.eof() && counter <= Max) {
+    int counter = 0;
+    while (!fin.eof() && counter < Max) {
         wstring line;
         getline(fin, line);
         int num = convert_Wstring_to_Number(line);
@@ -99,11 +99,11 @@ void ProcessData() {
     fout.close();
 }
 int convert_Wstring_to_Number(wstring x) {
-    int num = 0, length = x.length(), i = 0;
-    while (i < length && x[i] != L'.') {
-        if (L'0' <= x[i] && x[i] <= L'9')
-            num = num * 10 + x[i] - L'0';
-        ++i;
+    int num = 0;
+    wregex findNumber(L"^[0-9]+");
+    for (wsregex_iterator i = wsregex_iterator(x.begin(), x.end(), findNumber); i != wsregex_iterator(); ++i) {
+        wstring tmp = ((wsmatch)*i)[0];
+        num = (int)stoll(tmp.substr(0, tmp.size()));
     }
     return num;
 }
